@@ -1,5 +1,5 @@
 const { QueryTypes } = require("sequelize");
-const sequelize = require("../../config/database");
+const sequelize = require("../configs/database");
 
 async function GetRosterByCar(cars) {
   try {

@@ -1,5 +1,5 @@
-const { QueryTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../configs/database");
 
 async function getAllCars() {
   try {

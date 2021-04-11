@@ -1,16 +1,16 @@
-const registerCar = require('../helpers/registerCar');
-const registerCarRoster = require('../helpers/registerCarRoster');
-const getCarById = require('../helpers/getCarById');
-const getAllCars = require('../helpers/getAllCars');
-const getCarByPartner = require('../helpers/getCarByPartner');
-const getRosterByCar = require('../helpers/getRosterByCar');
-const updateCar = require('../helpers/updateCar');
-const unregisterCar = require('../helpers/unregisterCar');
+const registerCar = require("../helpers/registerCar");
+const registerCarRoster = require("../helpers/registerCarRoster");
+const getCarById = require("../helpers/getCarById");
+const getAllCars = require("../helpers/getAllCars");
+const getCarByPartner = require("../helpers/getCarByPartner");
+const getRosterByCar = require("../helpers/getRosterByCar");
+const updateCar = require("../helpers/updateCar");
+const unregisterCar = require("../helpers/unregisterCar");
 
 class CarController {
   //[GET]: /cars/health
   static async getHealth(req, res) {
-    res.status(200).json({ message: 'Connect to Car Service successfully' });
+    res.status(200).json({ message: "Connect to Car Service successfully" });
   }
   //[GET]: /cars/:Id
   static async getCar(req, res, next) {
@@ -20,7 +20,7 @@ class CarController {
       const car = await getCarById(Id, licencePlate);
       if (!car)
         return res.status(404).json({
-          message: 'ID or LicencePlate does not exist!',
+          message: "ID or LicencePlate does not exist!",
         });
       return res.status(200).json({ car });
     } catch (error) {
@@ -33,7 +33,7 @@ class CarController {
       const car = await getAllCars();
       if (!car)
         return res.status(404).json({
-          message: 'Service has none of car',
+          message: "Service has none of car",
         });
       return res.status(200).json({ car });
     } catch (error) {
@@ -47,7 +47,7 @@ class CarController {
       const car = await getCarByPartner(partners);
       if (!car)
         return res.status(404).json({
-          message: 'partnerId is not exist',
+          message: "partnerId is not exist",
         });
       return res.status(200).json({ car });
     } catch (error) {
@@ -61,7 +61,7 @@ class CarController {
       const roster = await getRosterByCar(cars);
       if (!roster)
         return res.status(404).json({
-          message: 'That Car does not exist. Failed to get your Roster',
+          message: "That Car does not exist. Failed to get your Roster",
         });
       return res.status(200).json({ roster });
     } catch (error) {
@@ -73,7 +73,7 @@ class CarController {
     try {
       await registerCar(req.body);
       return res.status(201).json({
-        message: 'Register Successfully!',
+        message: "Register Successfully!",
       });
     } catch (error) {
       return next(error);
@@ -84,7 +84,7 @@ class CarController {
     try {
       await registerCarRoster(req.body);
       return res.status(201).json({
-        message: 'Register Roster Successfully!',
+        message: "Register Roster Successfully!",
       });
     } catch (error) {
       return next(error);

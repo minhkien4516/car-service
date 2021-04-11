@@ -1,6 +1,6 @@
-const { QueryTypes } = require('sequelize');
-const sequelize = require('../../config/database');
-const convertObjectToParam = require('../utils/convertObjectToParam');
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../configs/database");
+const convertObjectToParam = require("../utils/convertObjectToParam");
 
 async function updateCar(information) {
   const params = convertObjectToParam(information);

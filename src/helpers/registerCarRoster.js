@@ -1,11 +1,11 @@
-const { QueryTypes } = require('sequelize');
-const sequelize = require('../../config/database');
-const convertObjectToParam = require('../utils/convertObjectToParam');
+const { QueryTypes } = require("sequelize");
+const sequelize = require("../configs/database");
+const convertObjectToParam = require("../utils/convertObjectToParam");
 
 async function registerCarRoster(information) {
   try {
     const paramString = convertObjectToParam(information);
-    await sequelize.query(`SP_addCarRoster ${paramString}`, {
+    await sequelize.query(`SP_addcarRoster ${paramString}`, {
       type: QueryTypes.INSERT,
     });
   } catch (error) {
