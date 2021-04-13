@@ -1,6 +1,11 @@
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../configs/database");
 
+/**
+ *
+ * @param {string|number} Id,
+ * @returns {isRegisterd: BOOLEAN}
+ */
 async function unregisterCar(Id) {
   try {
     await sequelize.query(`UnregisterCar '${Id}'`, {
