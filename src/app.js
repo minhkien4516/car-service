@@ -1,15 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const https = require("https");
+// const https = require("https");
 const router = require("./routes");
 const sequelize = require("./configs/database");
 const { logErrors, clientErrorHandler } = require("./errors/handler");
 
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3005;
 
-const server = https.createServer(app);
+// const server = https.createServer(app);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +28,7 @@ app.get("*", (req, res, next) => {
   res.send("API is not exit");
 });
 
-server.listen(PORT, async () => {
+app.listen(PORT, async () => {
   console.log(`Your server is running on ${PORT}`);
   try {
     await sequelize.authenticate();

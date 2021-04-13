@@ -5,7 +5,7 @@ const convertObjectToParam = require("../utils/convertObjectToParam");
 async function registerCarRoster(information) {
   try {
     const paramString = convertObjectToParam(information);
-    await sequelize.query(`SP_addcarRoster ${paramString}`, {
+    await sequelize.query(`SP_addCarRoster ${paramString}`, {
       type: QueryTypes.INSERT,
     });
   } catch (error) {

@@ -3,10 +3,10 @@ const sequelize = require("../configs/database");
 
 async function getCarByPartner(partners) {
   try {
-    const car = await sequelize.query(`SP_GetCarByPartnerId '${partners}'`, {
+    const Car = await sequelize.query(`SP_GetCarByPartnerId '${partners}'`, {
       type: QueryTypes.SELECT,
     });
-    return car[0];
+    return Car;
   } catch (error) {
     throw new Error(error.message);
   }

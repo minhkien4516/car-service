@@ -27,34 +27,34 @@ class CarController {
       return next(error);
     }
   }
-  //[GET]: /cars
+  //[GET]: /cars/
   static async getAllCars(req, res, next) {
     try {
-      const car = await getAllCars();
-      if (!car)
+      const cars = await getAllCars();
+      if (!cars)
         return res.status(404).json({
           message: "Service has none of car",
         });
-      return res.status(200).json({ car });
+      return res.status(200).json({ cars });
     } catch (error) {
       return next(error);
     }
   }
-  //[GET]: /cars/:partnerId
+  //[GET]: /cars/partner/:partnerId
   static async getCarByPartnerId(req, res, next) {
     const { partners } = req.params;
     try {
-      const car = await getCarByPartner(partners);
-      if (!car)
+      const Car = await getCarByPartner(partners);
+      if (!Car)
         return res.status(404).json({
           message: "partnerId is not exist",
         });
-      return res.status(200).json({ car });
+      return res.status(200).json({ Car });
     } catch (error) {
       return next(error);
     }
   }
-  //[GET]: /roster/carId
+  //[GET]: /cars/roster/carId
   static async getRosterByCarId(req, res, next) {
     const { cars } = req.params;
     try {
@@ -68,18 +68,16 @@ class CarController {
       return next(error);
     }
   }
-  //[POST]: /cars
+  //[POST]: /cars/
   static async registerCar(req, res, next) {
     try {
-      await registerCar(req.body);
-      return res.status(201).json({
-        message: "Register Successfully!",
-      });
+      const car = await registerCar(req.body);
+      return res.status(201).json({ car });
     } catch (error) {
       return next(error);
     }
   }
-  //[POST] /roster
+  //[POST] /cars/rosters
   static async registerRoster(req, res, next) {
     try {
       await registerCarRoster(req.body);
@@ -90,7 +88,7 @@ class CarController {
       return next(error);
     }
   }
-  //[PATCH]: /cars/Id
+  //[PATCH]: /cars/:Id
   static async updateCar(req, res, next) {
     const { Id } = req.params;
     try {
