@@ -10,6 +10,7 @@ CREATE TABLE [dbo].[Cars](
 	[luggage] [nvarchar](250) NOT NULL,
 	[passenger] [nvarchar](250) NOT NULL,
 	[partners] [nvarchar](36) NOT NULL,
+        [photoUrl] [nvarchar](MAX) NOT NULL,
 	[isRegisterd] [bit] NOT NULL
 ) ON [PRIMARY]
 GO

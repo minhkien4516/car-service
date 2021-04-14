@@ -6,6 +6,8 @@ const getCarByPartner = require("../helpers/getCarByPartner");
 const getRosterByCar = require("../helpers/getRosterByCar");
 const updateCar = require("../helpers/updateCar");
 const unregisterCar = require("../helpers/unregisterCar");
+const GetCarByStation = require("../helpers/getCarByStation");
+const router = require("../routes");
 
 class CarController {
   //[GET]: /cars/health
@@ -40,7 +42,7 @@ class CarController {
       return next(error);
     }
   }
-  //[GET]: /cars/partner/:partnerId
+  //[GET]: /cars/partner/:partners
   static async getCarByPartnerId(req, res, next) {
     const { partners } = req.params;
     try {
@@ -54,7 +56,7 @@ class CarController {
       return next(error);
     }
   }
-  //[GET]: /cars/roster/carId
+  //[GET]: /cars/roster/:carId
   static async getRosterByCarId(req, res, next) {
     const { cars } = req.params;
     try {
@@ -68,6 +70,23 @@ class CarController {
       return next(error);
     }
   }
+  //[GET]: /cars/station/?district=...&city=...&country=...
+  static async getCarByStation(req, res, next) {
+    const { district } = req.query;
+    const { city } = req.query;
+    const { country } = req.query;
+    try {
+      const CAR = await GetCarByStation(district, city, country);
+      if (!CAR)
+        return res.status(404).json({
+          message: "That Car does not exist. Failed to get your information",
+        });
+      return res.status(200).json({ CAR });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   //[POST]: /cars/
   static async registerCar(req, res, next) {
     try {
