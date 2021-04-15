@@ -5,18 +5,16 @@ GO
 
 CREATE PROCEDURE [dbo].[SP_GetPartner]
 (
-    @Id NVARCHAR(36)=NULL
+    @id NVARCHAR(36)
 )
 AS
 BEGIN
     BEGIN TRY
-        IF (@Id IS NOT NULL)
         BEGIN
             SELECT * FROM [dbo].[Partners]
-            WHERE @Id=Id
+            WHERE @id=id
             RETURN
         END
-        RAISERROR('ERROR ID OR NAME!', 16, 1)
     END TRY
     BEGIN CATCH
         SELECT ERROR_MESSAGE() AS ErrorMessage

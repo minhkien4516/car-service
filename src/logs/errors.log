@@ -1,0 +1,9 @@
+[2021-04-15 10:04:21] [[31merror[39m] Errors from server: Invalid object name 'CarRoster'.
+[2021-04-15 10:04:53] [[31merror[39m] Errors from server: Invalid object name 'CarRoster'.
+[2021-04-15 10:05:11] [[31merror[39m] Errors from server: Invalid object name 'CarRoster'.
+[2021-04-15 10:05:20] [[31merror[39m] Errors from server: Invalid object name 'CarRoster'.
+[2021-04-15 10:07:17] [[31merror[39m] Errors from server: Invalid object name 'dbo.CarRoster'.
+[2021-04-15 10:24:58] [[31merror[39m] Errors from server: Procedure or function 'SP_RegisterCar' expects parameter '@photoUrl', which was not supplied.
+[2021-04-15 10:51:21] [[31merror[39m] Errors from server: Procedure or function 'SP_GetCarsByStation' expects parameter '@district', which was not supplied.
+[2021-04-15 10:52:48] [[31merror[39m] Errors from server: Procedure or function 'SP_RegisterCar' expects parameter '@standardPricePerKm', which was not supplied.
+[2021-04-15 10:57:27] [[31merror[39m] Errors from server: Procedure or function 'SP_GetCarsByStation' expects parameter '@district', which was not supplied.

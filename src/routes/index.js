@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const CarController = require("../controllers/carController");
+const router = require('express').Router();
+const CarController = require('../controllers/carController');
+const JourneyController = require('../controllers/journeyController');
 
-router.get("/health", CarController.getHealth);
-router.route("/").get(CarController.getAllCars).post(CarController.registerCar);
-router.route("/station/").get(CarController.getCarByStation);
-router.route("/:Id").get(CarController.getCar).patch(CarController.updateCar);
+router.get('/health', CarController.getHealth);
 
-router.route("/unregister/:Id?").patch(CarController.unregisterCar);
+router.route('/').get(CarController.getCars).post(CarController.registerCar);
 
-router.route("/partner/:partners?").get(CarController.getCarByPartnerId);
+// router.route('/:id').get(CarController.getCar);
 
-router.route("/roster/:cars?").get(CarController.getRosterByCarId);
-router.route("/rosters").post(CarController.registerRoster);
+router
+  .route('/journeys')
+  .get(JourneyController.getJourneysByCar)
+  .post(JourneyController.registerJourney);
 
 module.exports = router;
