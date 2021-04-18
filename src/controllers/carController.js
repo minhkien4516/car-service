@@ -1,12 +1,12 @@
-const registerCar = require('../helpers/registerCar');
-const getCarById = require('../helpers/getCarById');
-const getCarsByPartner = require('../helpers/getCarsByPartner');
-const GetCarsByStation = require('../helpers/getCarsByStation');
+const registerCar = require("../helpers/registerCar");
+const getCarById = require("../helpers/getCarById");
+const getCarsByPartner = require("../helpers/getCarsByPartner");
+const GetCarsByStation = require("../helpers/getCarsByStation");
 
 class CarController {
   //[GET]: /cars/health
   static async getHealth(req, res) {
-    res.status(200).json({ message: 'Connect to Car Service successfully' });
+    res.status(200).json({ message: "Connect to Car Service successfully" });
   }
   //[GET]: /cars/:id
   static async getCar(req, res, next) {
@@ -15,7 +15,7 @@ class CarController {
       const car = await getCarById(id);
       if (!car)
         return res.status(404).json({
-          message: 'ID or LicencePlate does not exist!',
+          message: "ID does not exist!",
         });
       return res.status(200).json({ car });
     } catch (error) {

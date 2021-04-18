@@ -5,18 +5,27 @@ const getCarsByStation = require("../helpers/getCarsByStation");
 const getJourneysByCar = require("../helpers/getJourneysByCar");
 const registerCar = require("../helpers/registerCar");
 const registerJourney = require("../helpers/registerJourney");
+const activateJourney = require("../helpers/activateJourney");
 
-//Test getCarById&licencePlate
-test("Test get cars by non-existed id", async () => {
-  const car = await getCarById({
-    Id: "2",
-  });
+//Test activateJourney
+test("Test activate journey by non-existed journeyId", async () => {
+  const car = await activateJourney({ journeyId: "2" });
   expect(car).not.toStrictEqual({ car });
 });
-test("Test get cars by existed id and licencePlate", async () => {
-  const car = await getCarById({
-    Id: "1",
+test("Test activate journey by existed journeyId", async () => {
+  const car = await activateJourney({
+    journeyId: "16543FFF-9B3D-46B8-9D5D-6FD01AA136B2",
   });
+  expect(car).toEqual(expect.arrayContaining([]));
+});
+
+//Test getCarById
+test("Test get cars by non-existed id", async () => {
+  const car = await getCarById("2");
+  expect(car).not.toStrictEqual({ car });
+});
+test("Test get cars by existed id", async () => {
+  const car = await getCarById("01FB2D75-7BD6-4813-BCB6-FE946260A467");
   expect(car).toEqual(expect.arrayContaining([]));
 });
 
@@ -33,19 +42,19 @@ test("Test get cars by existed partner id", async () => {
 //Test getCarByStation
 test("Test get cars by non-existed station", async () => {
   const cars = await getCarsByStation({
-    district: "District 1",
-    city: "Ha Noi City",
+    district: "Quan 4",
+    city: "TP HCM",
     country: "Viet Nam",
   });
-  expect(cars).toEqual([]);
+  expect(cars).not.toEqual([]);
 });
 test("Test get cars by existed station", async () => {
   const cars = await getCarsByStation({
     district: "Quan 4",
-    city: "HCM",
+    city: "Ho Chi Minh",
     country: "Viet Nam",
   });
-  expect(cars).toStrictEqual([]);
+  expect(cars).not.toStrictEqual([]);
 });
 
 //Test getJourneysByCar
@@ -54,26 +63,32 @@ test("Test get rosters by non-existed car id", async () => {
   expect(journeys).toEqual(expect.arrayContaining([]));
 });
 test("Test get rosters by existed car id", async () => {
-  const journeys = await getJourneysByCar("1");
+  const journeys = await getJourneysByCar(
+    "0AB2CBF3-E515-4FB4-B160-5E1C7E83792C"
+  );
   expect(journeys).toEqual(expect.arrayContaining([]));
 });
 
 //Test registerCar
 test("Test post car by existed condition", async () => {
   const car = await registerCar({
-    carName: "Hyundai",
-    luggage: "4 hanh ly",
-    passenger: "6 hanh khach",
+    name: "Mazda 3",
+    luggagePayload: "4",
+    guestQuantity: "6",
+    photoUrl: "UNKNOWN",
     partnerId: "6FCBA8AD-FC47-4562-8C59-8BFFB4F8F408",
+    standardPricePerKm: "150000",
   });
   expect(car).not.toStrictEqual({ car });
 });
 test("Test post car by non-existed condition", async () => {
   const car = await registerCar({
-    carName: "Hyundai",
-    luggage: "4 hanh ly",
-    passenger: "6 hanh khach",
-    partnerId: "1",
+    name: "Hyundai",
+    luggagePayload: "4",
+    guestQuantity: "6",
+    photoUrl: "UNKNOWN",
+    partnerId: "6FCBA8AD-FC47-4562-8C59-8BFFB4F8F408",
+    standardPricePerKm: "120000",
   });
   expect(car).toEqual(expect.arrayContaining([]));
 });
@@ -85,21 +100,17 @@ test("Test post Journey by existed condition", async () => {
     district: "Quan 4",
     city: "Ho Chi Minh",
     country: "Viet Nam",
-    carId: "1",
-    workDate: "4/18/2021",
-    standardPricePerKm: "100000",
+    carId: "92C9161D-94FB-4E1A-BCD9-1D0DE26AF31D",
   });
   expect(car).toEqual(expect.arrayContaining([]));
 });
 test("Test post Journey by non-existed condition", async () => {
   const car = await registerJourney({
-    placeId: "Huflit",
-    district: "Quan 4",
+    placeId: "Trung Vuong",
+    district: "Quan 1",
     city: "Ho Chi Minh",
     country: "Viet Nam",
-    carId: "1",
-    workDate: "4/18/2021",
-    standardPricePerKm: "100000",
+    carId: "0AB2CBF3-E515-4FB4-B160-5E1C7E83792C",
   });
   expect(car).not.toStrictEqual({ car });
 });
