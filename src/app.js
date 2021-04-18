@@ -1,10 +1,10 @@
-require('dotenv').config();
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const logger = require('./configs/winston');
-const router = require('./routes');
-const sequelize = require('./configs/database');
-const { logErrors, clientErrorHandler } = require('./errors/handler');
+require("dotenv").config();
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const logger = require("./configs/winston");
+const router = require("./routes");
+const sequelize = require("./configs/database");
+const { logErrors, clientErrorHandler } = require("./errors/handler");
 
 const app = express();
 const PORT = process.env.PORT || 3005;
@@ -14,17 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/cars', router);
+app.use("/cars", router);
 
 app.use(logErrors);
 app.use(clientErrorHandler);
 
-app.listen(PORT, async () => {
-  logger.info(`Your server is running on ${PORT}`);
-  try {
-    await sequelize.authenticate();
-    logger.info('Car service connects to database successfully!');
-  } catch (error) {
-    logger.error(`Car service can not connect due to ${error.message}`);
-  }
-});
+module.exports = app;

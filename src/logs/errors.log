@@ -7,3 +7,4 @@
 [2021-04-15 10:51:21] [[31merror[39m] Errors from server: Procedure or function 'SP_GetCarsByStation' expects parameter '@district', which was not supplied.
 [2021-04-15 10:52:48] [[31merror[39m] Errors from server: Procedure or function 'SP_RegisterCar' expects parameter '@standardPricePerKm', which was not supplied.
 [2021-04-15 10:57:27] [[31merror[39m] Errors from server: Procedure or function 'SP_GetCarsByStation' expects parameter '@district', which was not supplied.
+[2021-04-18 21:16:27] [[31merror[39m] Car service can not connect due to The "config.server" property is required and must be of type string.
