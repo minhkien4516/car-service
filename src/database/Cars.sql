@@ -1,39 +1,52 @@
-SET ANSI_NULLS ON
+-- Create a new database called 'Car_Service_DB'
+-- Connect to the 'master' database to run this snippet
+USE master
 GO
-SET QUOTED_IDENTIFIER ON
+-- Create the new database if it does not exist already
+IF NOT EXISTS (
+	SELECT [name]
+		FROM sys.databases
+		WHERE [name] = N'Car_Service_DB'
+)
+CREATE DATABASE Car_Service_DB
 GO
-CREATE TABLE [dbo].[Cars](
-	[Id] [nvarchar](36) NOT NULL,
-	[carName] [nvarchar](250) NOT NULL,
-	[Brand] [nvarchar](15) NOT NULL,
-	[licencePlate] [nvarchar](15) NOT NULL,
-	[luggage] [nvarchar](250) NOT NULL,
-	[passenger] [nvarchar](250) NOT NULL,
-	[partners] [nvarchar](36) NOT NULL,
-        [photoUrl] [nvarchar](MAX) NOT NULL,
-	[isRegisterd] [bit] NOT NULL
-) ON [PRIMARY]
+
+-- Create a new table called '[Cars]' in schema '[dbo]'
+-- Drop the table if it already exists
+IF OBJECT_ID('[dbo].[Cars]', 'U') IS NOT NULL
+DROP TABLE [dbo].[Cars]
 GO
-SET ANSI_PADDING ON
-GO
-ALTER TABLE [dbo].[Cars] ADD PRIMARY KEY CLUSTERED 
+-- Create the table in the specified schema
+CREATE TABLE [dbo].[Cars]
 (
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	[id] [nvarchar](36) DEFAULT newId() NOT NULL PRIMARY KEY, -- Primary Key column
+	[name] [nvarchar](250) NOT NULL,
+	[luggagePayload] [int] NOT NULL,
+	[guestQuantity] [int] NOT NULL,
+	[partnerId] [nvarchar](36) NOT NULL,
+	[photoUrl] [nvarchar](MAX) NOT NULL,
+	[standardPricePerKm] [decimal](18, 0) NOT NULL,
+	[isRegisterd] [bit] DEFAULT 1 NOT NULL
+);
 GO
-SET ANSI_PADDING ON
+
+-- Create a new table called '[Journeys]' in schema '[dbo]'
+-- Drop the table if it already exists
+IF OBJECT_ID('[dbo].[Journeys]', 'U') IS NOT NULL
+DROP TABLE [dbo].[Journeys]
 GO
-ALTER TABLE [dbo].[Cars] ADD UNIQUE NONCLUSTERED 
+-- Create the table in the specified schema
+CREATE TABLE [dbo].[Journeys]
 (
-	[carName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Cars] ADD  DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [dbo].[Cars] ADD  DEFAULT ((1)) FOR [isRegisterd]
-GO
-ALTER TABLE [dbo].[Cars]  WITH CHECK ADD  CONSTRAINT [FK_Partner_Car] FOREIGN KEY([partners])
-REFERENCES [dbo].[Partners] ([Id])
-GO
-ALTER TABLE [dbo].[Cars] CHECK CONSTRAINT [FK_Partner_Car]
+	[id] [nvarchar](36) DEFAULT newId() NOT NULL PRIMARY KEY, -- Primary Key column
+	[placeId] [nvarchar](50) NOT NULL,
+	[district] [nvarchar](250) NOT NULL,
+	[city] [nvarchar](250) NOT NULL,
+	[country] [nvarchar](250) NOT NULL,
+	[carId] [nvarchar](36) NOT NULL,
+	[isActive] [bit] DEFAULT 1 NOT NULL,
+	[createdAt] [datetime2](7) DEFAULT GETDATE() NOT NULL,
+	-- Specify more columns here
+	CONSTRAINT [FK_Cars_Journeys] FOREIGN KEY([carId]) REFERENCES [dbo].[Cars] ([id])
+);
 GO

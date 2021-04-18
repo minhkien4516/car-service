@@ -1,6 +1,7 @@
+const logger = require('../configs/winston');
+
 exports.logErrors = (error, req, res, next) => {
-  // eslint-disable-next-line no-console
-  console.log(`Errors from server: ${error.message}`);
+  logger.error(`Errors from server: ${error.message}`);
   next(error);
 };
 

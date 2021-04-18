@@ -3,25 +3,26 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- Create the stored procedure in the specified schema
-CREATE PROCEDURE [dbo].[RegisterCar]
-    @carName NVARCHAR(250),
-    @Brand NVARCHAR(15),
-    @licencePlate NVARCHAR(15), 	
-    @luggage NVARCHAR(250),
-    @passenger NVARCHAR(250),
-    @partners NVARCHAR(36)
+CREATE OR ALTER PROCEDURE [dbo].[SP_RegisterCar]
+    @name NVARCHAR(250),
+    @luggagePayload INT,
+    @guestQuantity INT,
+    @photoUrl NVARCHAR(MAX),
+    @standardPricePerKm DECIMAL,
+    @partnerId NVARCHAR(36)
 AS
 BEGIN
      BEGIN TRY
         INSERT INTO [dbo].[Cars]
         (
-            [carName], [Brand], [licencePlate], [luggage], 
-            [passenger], [partners]
+            [name], [luggagePayload], [standardPricePerKm],
+            [guestQuantity], [partnerId], [photoUrl]
         )
+        OUTPUT inserted.*
         VALUES
         (
-            @carName, @Brand, @licencePlate, @luggage, @passenger,
-            @partners
+            @name, @luggagePayload, @standardPricePerKm,
+            @guestQuantity, @partnerId, @photoUrl
         )
     END TRY
 

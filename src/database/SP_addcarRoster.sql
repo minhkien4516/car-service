@@ -3,28 +3,25 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SP_addcarRoster]
-    @description NTEXT,
+CREATE OR ALTER PROCEDURE [dbo].[SP_AddJourney]
+    
     @placeId NVARCHAR(50),
     @district NVARCHAR(250),
     @city NVARCHAR(250),
     @country NVARCHAR(250),
-    @cars NVARCHAR(36),
-    @driverName NVARCHAR(250),  
-    @workDate DATE,
-    @standardPrice DECIMAL
+    @carId NVARCHAR(36)
 AS
 BEGIN
       BEGIN TRY
-        INSERT INTO [dbo].[CarRoster]
+        INSERT INTO [dbo].[Journeys]
         (
-            [description], [placeId], [district],[city],
-            [country], [cars], [driverName],[workDate],[standardPrice]
+            [placeId], [district],[city], [country], 
+            [carId]
         )
         VALUES
         (
-            @description, @placeId, @district, @city, @country,@cars,
-            @driverName,@workDate, @standardPrice
+            @placeId, @district, @city, @country, 
+            @carId
         )
     END TRY
 

@@ -1,15 +1,14 @@
-const { QueryTypes } = require("sequelize");
-const sequelize = require("../configs/database");
+const { QueryTypes } = require('sequelize');
+const sequelize = require('../configs/database');
 
 /**
  *
- * @param {string|number} Id
- * @param {string|number} licencePlate
+ * @param {string|number} id
  * @returns {car: Object}
  */
-async function getCarById(Id, licencePlate) {
+async function getCarById(id) {
   try {
-    const car = await sequelize.query(`GetCar '${Id}','${licencePlate}'`, {
+    const car = await sequelize.query(`SP_GetCarById '${id}'`, {
       type: QueryTypes.SELECT,
     });
     return car[0];
